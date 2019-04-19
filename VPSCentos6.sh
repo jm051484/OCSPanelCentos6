@@ -33,12 +33,12 @@ sed -i '$ i\echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6' /etc/rc.local
 sed -i '$ i\echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6' /etc/rc.d/rc.local
 
 #Add DNS Server ipv4
-echo "nameserver 8.8.8.8" > /etc/resolv.conf
-echo "nameserver 8.8.4.4" >> /etc/resolv.conf
-sed -i '$ i\echo "nameserver 8.8.8.8" > /etc/resolv.conf' /etc/rc.local
-sed -i '$ i\echo "nameserver 8.8.4.4" >> /etc/resolv.conf' /etc/rc.local
-sed -i '$ i\echo "nameserver 8.8.8.8" > /etc/resolv.conf' /etc/rc.d/rc.local
-sed -i '$ i\echo "nameserver 8.8.4.4" >> /etc/resolv.conf' /etc/rc.d/rc.local
+echo "nameserver 1.1.1.1" > /etc/resolv.conf
+echo "nameserver 8.8.8.8" >> /etc/resolv.conf
+sed -i '$ i\echo "nameserver 1.1.1.1" > /etc/resolv.conf' /etc/rc.local
+sed -i '$ i\echo "nameserver 8.8.8.8" >> /etc/resolv.conf' /etc/rc.local
+sed -i '$ i\echo "nameserver 1.1.1.1" > /etc/resolv.conf' /etc/rc.d/rc.local
+sed -i '$ i\echo "nameserver 8.8.8.8" >> /etc/resolv.conf' /etc/rc.d/rc.local
 
 # install wget and curl
 yum -y install wget curl
@@ -50,10 +50,10 @@ rpm -Uvh epel-release-6-8.noarch.rpm
 rpm -Uvh remi-release-6.rpm
 
 if [ "$OS" == "x86_64" ]; then
-  wget https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
+  wget https://raw.githubusercontent.com/jm051484/OCSPanelCentos6/master/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
   rpm -Uvh rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
 else
-  wget https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/rpmforge-release-0.5.3-1.el6.rf.i686.rpm
+  wget https://raw.githubusercontent.com/jm051484/OCSPanelCentos6/master/rpmforge-release-0.5.3-1.el6.rf.i686.rpm
   rpm -Uvh rpmforge-release-0.5.3-1.el6.rf.i686.rpm
 fi
 
@@ -96,7 +96,7 @@ chkconfig vnstat on
 
 # install screenfetch
 cd
-wget -O /usr/bin/screenfetch "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/screenfetch"
+wget -O /usr/bin/screenfetch "https://raw.githubusercontent.com/jm051484/OCSPanelCentos6/master/screenfetch"
 chmod +x /usr/bin/screenfetch
 echo "clear" >> .bash_profile
 echo "screenfetch" >> .bash_profile
@@ -181,14 +181,14 @@ service php-fpm restart
 service nginx restart
 
 # install openvpn
-wget -O /etc/openvpn/openvpn.tar "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/openvpn-centos.tar"
+wget -O /etc/openvpn/openvpn.tar "https://raw.githubusercontent.com/jm051484/OCSPanelCentos6/master/openvpn-centos.tar"
 cd /etc/openvpn/
 tar xf openvpn.tar
-wget -O /etc/openvpn/1194.conf "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/1194-centos.conf"
+wget -O /etc/openvpn/1194.conf "https://raw.githubusercontent.com/jm051484/OCSPanelCentos6/master/1194-centos.conf"
 if [ "$OS" == "x86_64" ]; then
-  wget -O /etc/openvpn/1194.conf "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/1194-centos64.conf"
+  wget -O /etc/openvpn/1194.conf "https://raw.githubusercontent.com/jm051484/OCSPanelCentos6/master/1194-centos64.conf"
 fi
-wget -O /etc/iptables.up.rules "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/iptables.up.rules"
+wget -O /etc/iptables.up.rules "https://raw.githubusercontent.com/jm051484/OCSPanelCentos6/master/iptables.up.rules"
 sed -i '$ i\iptables-restore < /etc/iptables.up.rules' /etc/rc.local
 sed -i '$ i\iptables-restore < /etc/iptables.up.rules' /etc/rc.d/rc.local
 MYIP=`dig +short myip.opendns.com @resolver1.opendns.com`;
@@ -204,7 +204,7 @@ cd
 
 # configure openvpn client config
 cd /etc/openvpn/
-wget -O /etc/openvpn/client.ovpn "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/open-vpn.conf"
+wget -O /etc/openvpn/client.ovpn "https://raw.githubusercontent.com/jm051484/OCSPanelCentos6/master/open-vpn.conf"
 sed -i $MYIP2 /etc/openvpn/client.ovpn;
 cp client.ovpn /home/vps/public_html/
 cd
@@ -238,9 +238,9 @@ mkdir /var/lib/premium-script
 chkconfig pptpd on
 
 # install badvpn
-wget -O /usr/bin/badvpn-udpgw "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/badvpn-udpgw"
+wget -O /usr/bin/badvpn-udpgw "https://raw.githubusercontent.com/jm051484/OCSPanelCentos6/master/badvpn-udpgw"
 if [ "$OS" == "x86_64" ]; then
-  wget -O /usr/bin/badvpn-udpgw "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/badvpn-udpgw64"
+  wget -O /usr/bin/badvpn-udpgw "https://raw.githubusercontent.com/jm051484/OCSPanelCentos6/master/badvpn-udpgw64"
 fi
 sed -i '$ i\screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300' /etc/rc.local
 sed -i '$ i\screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300' /etc/rc.d/rc.local
@@ -249,15 +249,15 @@ screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300
 
 # install mrtg
 cd /etc/snmp/
-wget -O /etc/snmp/snmpd.conf "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/snmpd.conf"
-wget -O /root/mrtg-mem.sh "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/mrtg-mem.sh"
+wget -O /etc/snmp/snmpd.conf "https://raw.githubusercontent.com/jm051484/OCSPanelCentos6/master/snmpd.conf"
+wget -O /root/mrtg-mem.sh "https://raw.githubusercontent.com/jm051484/OCSPanelCentos6/master/mrtg-mem.sh"
 chmod +x /root/mrtg-mem.sh
 service snmpd restart
 chkconfig snmpd on
 snmpwalk -v 1 -c public localhost | tail
 mkdir -p /home/vps/public_html/mrtg
 cfgmaker --zero-speed 100000000 --global 'WorkDir: /home/vps/public_html/mrtg' --output /etc/mrtg/mrtg.cfg public@localhost
-curl "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/mrtg.conf" >> /etc/mrtg.cfg
+curl "https://raw.githubusercontent.com/jm051484/OCSPanelCentos6/master/mrtg.conf" >> /etc/mrtg.cfg
 sed -i 's/WorkDir: \/var\/www\/mrtg/# WorkDir: \/var\/www\/mrtg/g' /etc/mrtg/mrtg.cfg
 sed -i 's/# Options\[_\]: growright, bits/Options\[_\]: growright/g' /etc/mrtg/mrtg.cfg
 indexmaker --output=/home/vps/public_html/mrtg/index.html /etc/mrtg/mrtg.cfg
@@ -283,7 +283,7 @@ chkconfig dropbear on
 
 # install vnstat gui
 cd /home/vps/public_html/
-wget https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/vnstat_php_frontend-1.5.1.tar.gz
+wget https://raw.githubusercontent.com/jm051484/OCSPanelCentos6/master/vnstat_php_frontend-1.5.1.tar.gz
 tar xf vnstat_php_frontend-1.5.1.tar.gz
 rm vnstat_php_frontend-1.5.1.tar.gz
 mv vnstat_php_frontend-1.5.1 vnstat
@@ -302,45 +302,31 @@ chkconfig fail2ban on
 # install squid
 yum -y install squid
 cat > /etc/squid/squid.conf <<-END
-acl manager proto cache_object
-acl localhost src 127.0.0.1/32 ::1
-acl to_localhost dst 127.0.0.0/8 0.0.0.0/32 ::1
-acl localnet src 10.0.0.0/8
-acl localnet src 172.16.0.0/12
-acl localnet src 192.168.0.0/16
-acl localnet src fc00::/7
-acl localnet src fe80::/10
-acl SSL_ports port 443
-acl Safe_ports port 80
-acl Safe_ports port 21
-acl Safe_ports port 443
-acl Safe_ports port 70
-acl Safe_ports port 210
-acl Safe_ports port 1025-65535
-acl Safe_ports port 280
-acl Safe_ports port 488
-acl Safe_ports port 591
-acl Safe_ports port 777
+acl server dst xxxxxxxxx/32 localhost
+acl checker src 188.93.95.137
+acl ports_ port 22 53 21 8080 8000 3128 1194 443 80 442 1193 888 143 90 109 110
 acl CONNECT method CONNECT
-acl SSH dst xxxxxxxxx-xxxxxxxxx/32
-http_access allow SSH
-http_access allow manager localhost
-http_access deny manager
-http_access allow localnet
-http_access allow localhost
-http_access allow all
 http_port 8888
 http_port 8080
 http_port 8000
 http_port 80
 http_port 3128
-hierarchy_stoplist cgi-bin ?
-coredump_dir /var/spool/squid
-refresh_pattern ^ftp: 1440 20% 10080
-refresh_pattern ^gopher: 1440 0% 1440
-refresh_pattern -i (/cgi-bin/|\?) 0 0% 0
-refresh_pattern . 0 20% 4320
-visible_hostname shigeno
+http_access allow server
+http_access allow checker
+#http_access deny !server
+http_access deny !ports_
+access_log none
+netdb_filename none
+cache deny all
+cache_log /dev/null
+forwarded_for off
+via off
+refresh_pattern . 0 0% 0
+visible_hostname jm051484
+request_header_access Host allow all
+request_header_access Content-Length allow all
+request_header_access Content-Type allow all
+request_header_access All deny all
 END
 sed -i $MYIP2 /etc/squid/squid.conf;
 service squid restart
@@ -348,8 +334,9 @@ chkconfig squid on
 
 # install stunnel
 yum install stunnel
-wget -O /etc/pki/tls/certs/stunnel.pem "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/stunnel.pem"
-wget -O /etc/stunnel/stunnel.conf "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/stunnel.conf"
+wget -O /etc/pki/tls/certs/stunnel.pem "https://raw.githubusercontent.com/jm051484/OCSPanelCentos6/master/stunnel.pem"
+wget -O /etc/stunnel/stunnel.conf "https://raw.githubusercontent.com/jm051484/OCSPanelCentos6/master/stunnel.conf"
+sed -i $MYIP2 /etc/stunnel/stunnel.conf;
 mkdir /var/run/stunnel
 chown nobody:nobody /var/run/stunnel
 stunnel /etc/stunnel/stunnel.conf
@@ -365,7 +352,7 @@ rm -rf /root/master.zip
 
 # setting banner
 rm /etc/issue.net
-wget -O /etc/issue.net "https://raw.githubusercontent.com/daybreakersx/premscript/master/issue.net"
+wget -O /etc/issue.net "https://raw.githubusercontent.com/jm051484/OCSPanelCentos6/master/issue.net"
 sed -i 's@#Banner@Banner@g' /etc/ssh/sshd_config
 sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/issue.net"@g' /etc/default/dropbear
 service ssh restart
@@ -418,7 +405,7 @@ yum -y install bmon
 
 # download script
 cd
-wget https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/install-premiumscript.sh -O - -o /dev/null|sh
+wget https://raw.githubusercontent.com/jm051484/OCSPanelCentos6/master/install-premiumscript.sh -O - -o /dev/null|sh
 
 # cron
 service crond start
@@ -455,8 +442,7 @@ echo " "
 echo "--------------------------- Setup Server Information ---------------------------"
 echo "                         Copyright HostingTermurah.net                          "
 echo "                        https://www.hostingtermurah.net                         "
-echo "               Created By Steven Indarto(fb.com/stevenindarto2)                 "
-echo "                              Modified by shigeno                               "
+echo "                              Modified by jm051484                              "
 echo "--------------------------------------------------------------------------------"
 echo ""  | tee -a log-install.txt
 echo "Server Included"  | tee -a log-install.txt
@@ -497,5 +483,4 @@ echo "   - Vnstat                  : http://$MYIP:85/vnstat/"  | tee -a log-inst
 echo "   - MRTG                    : http://$MYIP:85/mrtg/"  | tee -a log-install.txt
 echo "   - Installation Log        : cat /root/log-install.txt"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
-echo "----------- Script Created By Steven Indarto(fb.com/stevenindarto2) ------------"
-echo "------------------------------ Modified by shigeno -----------------------------"
+echo "------------------------------ Modified by jm051484-----------------------------"
