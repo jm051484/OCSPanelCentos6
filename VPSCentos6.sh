@@ -1,6 +1,6 @@
 #!/bin/bash
 # Created by https://www.hostingtermurah.net
-# Modified by shigeno
+# Modified by jm051484
 
 #Requirement
 if [ ! -e /usr/bin/curl ]; then
